@@ -1,9 +1,8 @@
+//react libraries
 import React from 'react';
 import ReactDom from 'react-dom';
 
-class App extends React.Component {
-  render() {
-    return <div>Hello world</div>;
-  }
-}
+//components
+import App from './containers/App';
+
 ReactDom.render(<App />, document.getElementById('app'));
