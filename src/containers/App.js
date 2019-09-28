@@ -5,7 +5,17 @@ import React, { Component } from 'react';
 import '../styles/App.css';
 
 class App extends Component {
-  clicked = (event) => {};
+  state = {
+    turn: 'x',
+    gameEnded: false
+  };
+
+  clicked = (event) => {
+    event.target.innerText = this.state.turn;
+    this.setState({
+      turn: this.state.turn == 'x' ? 'o' : 'x'
+    });
+  };
   render() {
     return (
       <div id="game">
