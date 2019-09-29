@@ -11,9 +11,19 @@
 }
 
 .square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 45px;
     width: 100px;
     height: 100px;
     border: 1px solid #000000;
+    cursor: pointer;
+    user-select: none;
+}
+
+.square:hover {
+    background-color: #eeeeee;
 }
 
 #game {
@@ -26,4 +36,28 @@
 #head {
     font-size: 25px;
     padding: 15px;
+}
+
+.square:nth-child(7),
+:nth-child(8),
+:nth-child(9) {
+    border-bottom: 0
+}
+
+.square:nth-child(1),
+:nth-child(2),
+:nth-child(3) {
+    border-top: 0
+}
+
+.square:nth-child(1),
+:nth-child(4),
+:nth-child(7) {
+    border-left: 0
+}
+
+.square:nth-child(3),
+:nth-child(6),
+:nth-child(9) {
+    border-right: 0
 }
