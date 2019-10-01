@@ -8,48 +8,63 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+
+      winner: undefined,
+    };
+    this.gameState = {
       turn: 'x',
       gameEnded: false,
-      winner: undefined,
+      gameLocked:false,
       board: Array(9).fill(''),
-      totalMoves: 0
-    };
+      totalMoves: 0,
+    }
   }
 
-  clicked = (event) => {
-    if (this.state.board[event.target.dataset.square] == '') {
-      this.state.board[event.target.dataset.square] = this.state.turn;
+  clicked = (box) => {
+    if(this.gameState.gameEnded || this.gameState.gameLocked)return;
+    if (this.gameState.board[box.dataset.square] == '') {
+      this.gameState.board[box.dataset.square] = this.gameState.turn;
 
-      event.target.innerText = this.state.turn;
-      this.setState({
-        turn: this.state.turn == 'x' ? 'o' : 'x',
-        board: this.state.board,
-        totalMoves: this.state.totalMoves++
-      });
+      box.innerText = this.gameState.turn;
+        this.gameState.turn= this.gameState.turn == 'x' ? 'o' : 'x',
+      this.gameState.totalMoves++
     }
 
     var result = this.checkWinner();
     if (result == 'x') {
+      this.gameState.gameEnded = true;
       this.setState({
-        gameEnded: true,
         winner: 'x',
         winnerLine: 'Match won by x'
       });
     } else if (result == 'o') {
+      this.gameState.gameEnded = true;
       this.setState({
-        gameEnded: true,
         winner: 'o',
         winnerLine: 'Match won by o'
       });
     } else if (result == 'draw') {
+      this.gameState.gameEnded = true;
       this.setState({
-        gameEnded: true,
         winner: 'draw',
-        winnerLine: 'Match is drawn '
+        winnerLine: 'Match is drawn'
       });
     }
+if(this.gameState.turn=='o' && !this.gameState.gameEnded){
+  this.gameState.gameLocked=true
+  setTimeout(()=>{
+    do{
+      var random=Math.floor(Math.random()*9);
+    }while(this.gameState.board[random]!='')
+    this.gameState.gameLocked=false
+    this.clicked(document.querySelectorAll('.square')[random])
+  }, 1000)
+  
+}
+
   };
   checkWinner = () => {
+    
     var moves = [
       [0, 3, 6],
       [1, 4, 7],
@@ -60,7 +75,7 @@ class App extends Component {
       [3, 4, 5],
       [6, 7, 8]
     ];
-    var board = this.state.board;
+    var board = this.gameState.board;
     for (let i = 0; i < moves.length; i++) {
       if (
         board[moves[i][0]] == board[moves[i][1]] &&
@@ -68,17 +83,19 @@ class App extends Component {
       ) {
         return board[moves[i][0]];
       }
+
+      if (this.gameState.totalMoves == 9) {        
+        return 'draw';
+      }
     }
-    if (this.state.totalMoves == 9) {
-      return 'draw';
-    }
+    
   };
   render() {
     return (
       <div id="game">
         <div id="status">{this.state.winnerLine}</div>
         <div id="head">World's best tic tac toe AI</div>
-        <div id="board" onClick={(e) => this.clicked(e)}>
+        <div id="board" onClick={(e) => this.clicked(e.target)}>
           <div className="square" data-square="0"></div>
           <div className="square" data-square="1"></div>
           <div className="square" data-square="2"></div>
