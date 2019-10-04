@@ -1,3 +1,4 @@
+//react libraries
 import React, {Component} from 'react'
 
 //styles
@@ -23,25 +24,25 @@ class TicTacToePage extends Component{
       this.state.board[box.dataset.square] = this.state.turn;
 
       box.innerText = this.state.turn;
-        this.state.turn= this.state.turn == 'x' ? 'o' : 'x',
+        this.state.turn= this.state.turn === 'x' ? 'o' : 'x',
       this.state.totalMoves++
     }
 
     const result = this.checkWinner();
 
-    if (result == 'x') {
+    if (result === 'x') {
       this.state.gameEnded = true;
       this.setState({
         winner: 'x',
         winnerLine: 'Match won by x'
       });
-    } else if (result == 'o') {
+    } else if (result === 'o') {
       this.state.gameEnded = true;
       this.setState({
         winner: 'o',
         winnerLine: 'Match won by o'
       });
-    } else if (result == 'draw') {
+    } else if (result === 'draw') {
       this.state.gameEnded = true;
       this.setState({
         winner: 'draw',
@@ -49,13 +50,13 @@ class TicTacToePage extends Component{
       });
     }
 
-if(this.state.turn=='o' && !this.state.gameEnded){
+if(this.state.turn==='o' && !this.state.gameEnded){
   this.state.gameLocked=true
   let random
   setTimeout(()=>{
     do{
       random=Math.floor(Math.random()*9);
-    }while(this.state.board[random]!='')
+    }while(this.state.board[random]!=='')
     this.state.gameLocked=false
     this.handleClicked(document.querySelectorAll('.square')[random])
   }, 1000)
@@ -78,13 +79,13 @@ if(this.state.turn=='o' && !this.state.gameEnded){
     const board = this.state.board;
     for (let i = 0; i < moves.length; i++) {
       if (
-        board[moves[i][0]] == board[moves[i][1]] &&
-        board[moves[i][1]] == board[moves[i][2]]
+        board[moves[i][0]] === board[moves[i][1]] &&
+        board[moves[i][1]] === board[moves[i][2]]
       ) {
         return board[moves[i][0]];
       }
 
-      if (this.state.totalMoves == 9) {        
+      if (this.state.totalMoves === 9) {        
         return 'draw';
       }
     }
