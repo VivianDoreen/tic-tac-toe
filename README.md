@@ -15,6 +15,8 @@
 
 
 ## Getting started
+ - navigate to this this link http://the-tic-tac-toe-app.herokuapp.com/ 
+ #### OR
  - Clone the repo with the command:- git clone https://github.com/VivianDoreen/tic-tac-toe.git
  - Using any editor of your choice, navigate into the repository folder
  - Install all the dependencies with the command:- npm install
