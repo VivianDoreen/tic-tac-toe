@@ -8,7 +8,22 @@
     "start:dev": "webpack-dev-server --open --mode development --hot",
     "start:api": "node server.js",
     "heroku-postbuild": "npm run build",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/src/index.js"
+    ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/src/index.js"
+    ]
   },
   "repository": {
     "type": "git",
@@ -40,12 +55,20 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.1.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.9.1",
+    "enzyme-to-json": "^3.3.5",
     "html-webpack-plugin": "^3.2.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.1.0",
+    "jest-mock-axios": "^2.1.11",
     "npm-run-all": "^4.1.5",
+    "react-test-renderer": "^16.10.2",
     "webpack": "^4.41.0",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.1"
