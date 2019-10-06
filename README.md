@@ -1,5 +1,7 @@
 # TicTacToe
 
+[![CircleCI](https://circleci.com/gh/VivianDoreen/tic-tac-toe.svg?style=svg)](https://circleci.com/gh/VivianDoreen/tic-tac-toe)
+
 ## Description
    - This is a game where two players(a candidate and a computer) compete against eachother. 
    - The candidate's value is 'x' when playing while the computers's value is 'o'. In the game, the candidate is the always the first player to play.
@@ -25,3 +27,4 @@
 ## Testing
 
    - Run the test locally with command:- npm run test -- -u, 
+  
