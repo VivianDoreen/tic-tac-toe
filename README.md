@@ -1,6 +1,7 @@
 # TicTacToe
 
 [![CircleCI](https://circleci.com/gh/VivianDoreen/tic-tac-toe.svg?style=svg)](https://circleci.com/gh/VivianDoreen/tic-tac-toe)
+[![Maintainability](https://api.codeclimate.com/v1/badges/df39a72782d7feb1555f/maintainability)](https://codeclimate.com/github/VivianDoreen/tic-tac-toe/maintainability)
 
 ## Description
    - This is a game where two players(a candidate and a computer) compete against eachother. 
