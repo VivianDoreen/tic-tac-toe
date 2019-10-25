@@ -1,71 +1,74 @@
 //react libraries
-import React, {Component} from 'react'
+import React, { Component } from "react";
 
 //styles
-import '../../styles/TicTacToe.css';
+import "../../styles/TicTacToe.css";
 
 //components
-import TicTacToeDisplay from '../../components/TicTacToeDisplay';
+import TicTacToeDisplay from "../../components/TicTacToeDisplay";
 
-class TicTacToePage extends Component{
-  state={
-    winner: undefined, 
-    turn: 'x',
+class TicTacToePage extends Component {
+  state = {
+    winner: undefined,
+    turn: "x",
     gameEnded: false,
-    gameLocked:false,
-    board: Array(9).fill(''),
-    totalMoves: 0,
-  }
+    gameLocked: false,
+    board: Array(9).fill(""),
+    totalMoves: 0
+  };
 
-  handleClicked = (box) => {
-    if(this.state.gameEnded || this.state.gameLocked)return;
-    
-    if (this.state.board[box.dataset.square] === '') {
+  handleClicked = box => {
+    if (this.state.gameEnded || this.state.gameLocked) return;
+
+    if (this.state.board[box.dataset.square] === "") {
       this.state.board[box.dataset.square] = this.state.turn;
 
       box.innerText = this.state.turn;
-        this.state.turn= this.state.turn === 'x' ? 'o' : 'x',
-      this.state.totalMoves++
+      (this.state.turn = this.state.turn === "x" ? "o" : "x"),
+        this.state.totalMoves++;
     }
 
     const result = this.checkWinner();
 
-    if (result === 'x') {
-      this.state.gameEnded = true;
-      this.setState({
-        winner: 'x',
-        winnerLine: 'Match won by x'
-      });
-    } else if (result === 'o') {
-      this.state.gameEnded = true;
-      this.setState({
-        winner: 'o',
-        winnerLine: 'Match won by o'
-      });
-    } else if (result === 'draw') {
-      this.state.gameEnded = true;
-      this.setState({
-        winner: 'draw',
-        winnerLine: 'Match is drawn'
-      });
+    switch (result) {
+      case "x":
+        this.state.gameEnded = true;
+        this.setState({
+          winner: "x",
+          winnerLine: "Match won by x"
+        });
+        break;
+      case "o":
+        this.state.gameEnded = true;
+        this.setState({
+          winner: "o",
+          winnerLine: "Match won by o"
+        });
+        break;
+      case "draw":
+        this.state.gameEnded = true;
+        this.setState({
+          winner: "draw",
+          winnerLine: "Match is drawn"
+        });
+        break;
+      default:
+        break;
     }
 
-if(this.state.turn==='o' && !this.state.gameEnded){
-  this.state.gameLocked=true
-  let random
-  setTimeout(()=>{
-    do{
-      random=Math.floor(Math.random()*9);
-    }while(this.state.board[random]!=='')
-    this.state.gameLocked=false
-    this.handleClicked(document.querySelectorAll('.square')[random])
-  }, 1000)
-  
-}
-
+    if (this.state.turn === "o" && !this.state.gameEnded) {
+      this.state.gameLocked = true;
+      let random;
+      setTimeout(() => {
+        do {
+          random = Math.floor(Math.random() * 9);
+        } while (this.state.board[random] !== "");
+        this.state.gameLocked = false;
+        this.handleClicked(document.querySelectorAll(".square")[random]);
+      }, 1000);
+    }
   };
   checkWinner = () => {
-    
     const moves = [
       [0, 3, 6],
       [1, 4, 7],
@@ -85,23 +88,27 @@ if(this.state.turn==='o' && !this.state.gameEnded){
         return board[moves[i][0]];
       }
 
-      if (this.state.totalMoves === 9) {        
-        return 'draw';
+      if (this.state.totalMoves === 9) {
+        return "draw";
       }
     }
-    
   };
 
   utils = {
-    
     //create an array of numbers between min and max (edges included)
-    range:(min,max)=>Array.from({length:max-min+1}, (_,i)=>min+i)
+    range: (min, max) =>
+      Array.from({ length: max - min + 1 }, (_, i) => min + i)
+  };
+  render() {
+    return (
+      <div>
+        <TicTacToeDisplay
+          winnerLine={this.state.winnerLine}
+          handleClicked={e => this.handleClicked(e.target)}
+          utils={this.utils}
+        />
+      </div>
+    );
   }
-    render(){
-        return(
-        <div>
-          <TicTacToeDisplay winnerLine= {this.state.winnerLine} handleClicked={(e) => this.handleClicked(e.target)} utils={this.utils}/>
-        </div>)
-    }
 }
-export default TicTacToePage
+export default TicTacToePage;
